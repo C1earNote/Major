@@ -229,8 +229,7 @@ export default function Dashboard() {
   }, []);
 
   const handleFetchMessages = async () => {
-    if (useMock) return; // don't call backend when demoing
-
+    
     try {
       await fetch("http://localhost:5000/api/add-group", {
         method: "POST",
@@ -249,14 +248,6 @@ export default function Dashboard() {
     <div className="dashboard">
       <div className="header-row">
         <h1>Investigator Dashboard</h1>
-        <label className="mock-toggle">
-          <input
-            type="checkbox"
-            checked={useMock}
-            onChange={(e) => setUseMock(e.target.checked)}
-          />
-          Use Mock Data
-        </label>
       </div>
 
       <div className="stats-grid">
@@ -281,7 +272,7 @@ export default function Dashboard() {
                 value={groupLink}
                 onChange={(e) => setGroupLink(e.target.value)}
               />
-              <button onClick={handleFetchMessages}>{useMock ? "Demo" : "Analyze"}</button>
+              <button onClick={handleFetchMessages}>Analyze</button>
             </div>
           </div>
         </section>
