@@ -1,0 +1,13 @@
+user,message,similarity_to_main,dissimilarity_index,zscore,suspicion_confidence,is_suspicious
+Priya,Admin should delete those messages.,0.18632644,0.81367356,-3.08745,0.99035066,1
+Ankit,Anyone tried LSD? Heard it’s a wild experience.,0.2947243,0.7052757,-1.7075552,0.92833114,1
+Priya,"Ankit that’s not safe, don’t get into that.",0.29738057,0.70261943,-1.673741,0.92488235,1
+Rohan,Haha nice one Sneha!,0.30082536,0.69917464,-1.629889,0.92018276,1
+Jay,Anyone knows a place to get ecstasy?,0.31804293,0.68195707,-1.4107108,0.8924549,1
+Ankit,Anyone know where to get some weed? I heard someone near campus has some good stuff.,0.33083147,0.66916853,-1.247914,0.86667466,1
+Meena,"That’s really not something to mess with, dude.",0.3462629,0.65373707,-1.0514731,0.828809,1
+Jay,Hey anyone tried hash before?,0.34969258,0.6503074,-1.0078137,0.819316,1
+Meena,"Agreed, it’s not okay.",0.36100087,0.6389991,-0.8638602,0.7851256,1
+Jay,"Chill, I was just curious.",0.36704212,0.6329579,-0.78695554,0.76502573,1
+Rohan,Dude stop bringing up these things.,0.37155107,0.62844896,-0.7295571,0.7491973,1
+Sneha,Let’s talk about team practice.,0.37586647,0.6241335,-0.67462236,0.7333984,1
