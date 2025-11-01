@@ -91,7 +91,7 @@
 
 .header-row h1 {
   margin: 0;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
 }
 
 
@@ -103,11 +103,18 @@
   align-items: start;
 }
 
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 18px; /* space between stacked panels (Detected Channels, Quick Actions) */
+}
+
 .panel {
-  background: #111217;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(2,6,23,0.6);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  padding: 22px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+  border: 1px solid rgba(255,255,255,0.03);
 }
 
 .panel.small {
@@ -140,14 +147,15 @@
 }
 
 .channel-name {
-  font-weight: 600;
-  color: #e6eef8;
+  font-weight: 700;
+  color: #f8fafc;
+  font-size: 1.02rem;
 }
 
 .channel-link {
-  color: #8b98a8;
-  font-size: 0.85rem;
-  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 6px;
 }
 
 .channel-meta {
@@ -164,8 +172,9 @@
 }
 
 .user-name {
-  font-weight: 600;
-  color: #f1f5f9;
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 1rem;
 }
 
 .muted {
@@ -178,13 +187,16 @@
 }
 
 .risk-badge {
-  background: linear-gradient(90deg,#f97316,#ef4444);
-  color: white;
-  padding: 6px 10px;
+  padding: 6px 12px;
   border-radius: 999px;
-  font-weight: 700;
-  font-size: 0.9rem;
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: white;
 }
+
+.risk-badge[data-risk="low"] { background: linear-gradient(90deg,#34d399,#10b981); }
+.risk-badge[data-risk="med"] { background: linear-gradient(90deg,#f59e0b,#f97316); }
+.risk-badge[data-risk="high"] { background: linear-gradient(90deg,#ef4444,#dc2626); }
 
 .user-flags {
   margin-top: 8px;
@@ -194,12 +206,121 @@
 
 .message-text {
   margin-top: 8px;
-  color: #e6eef8;
+  color: #dbeafe;
+  font-size: 0.98rem;
 }
+
+.message-card {
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+.message-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(11,88,128,0.12);
+}
+
+/* channel link underline reveal */
+.channel-link {
+  position: relative;
+  overflow: hidden;
+}
+.channel-link::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -2px;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(90deg,#7c3aed,#06b6d4);
+  transform: translateX(-110%);
+  transition: transform 420ms cubic-bezier(.2,.9,.3,1);
+}
+.channel-link:hover::after { transform: translateX(0); }
+
+/* risk-badge ripple */
+.risk-badge {
+  position: relative;
+  overflow: visible;
+}
+.risk-badge::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 260ms ease, transform 260ms ease;
+}
+.risk-badge:hover::after {
+  opacity: 0.16;
+  transform: scale(1.12);
+  background: radial-gradient(circle, rgba(255,255,255,0.08), rgba(255,255,255,0));
+}
+
+/* subtle tilt on message card when hovering with cursor move */
+.message-card { transform-origin: center center; }
+.message-card::before { content: ''; position: absolute; left:0; right:0; top:0; bottom:0; pointer-events:none; }
+
 
 /* Responsive */
 @media (max-width: 880px) {
   .cols { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px) scale(0.995); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/* Entrance for lists and cards with stagger */
+.channel-item, .user-item, .message-card, .stat-box {
+  opacity: 0;
+  transform-origin: center;
+  animation: fadeUp 420ms cubic-bezier(.2,.9,.3,1) forwards;
+}
+
+.channel-list li:nth-child(1), .user-list li:nth-child(1), .messages-container .message-card:nth-child(1), .stats-grid .stat-box:nth-child(1) { animation-delay: 80ms; }
+.channel-list li:nth-child(2), .user-list li:nth-child(2), .messages-container .message-card:nth-child(2), .stats-grid .stat-box:nth-child(2) { animation-delay: 140ms; }
+.channel-list li:nth-child(3), .user-list li:nth-child(3), .messages-container .message-card:nth-child(3), .stats-grid .stat-box:nth-child(3) { animation-delay: 200ms; }
+.channel-list li:nth-child(4), .user-list li:nth-child(4), .messages-container .message-card:nth-child(4), .stats-grid .stat-box:nth-child(4) { animation-delay: 260ms; }
+.channel-list li:nth-child(5), .user-list li:nth-child(5), .messages-container .message-card:nth-child(5), .stats-grid .stat-box:nth-child(5) { animation-delay: 320ms; }
+.channel-list li:nth-child(6), .user-list li:nth-child(6), .messages-container .message-card:nth-child(6) { animation-delay: 380ms; }
+
+/* Shimmer effect for stat boxes */
+.stat-box {
+  background-image: linear-gradient(90deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0.02) 100%);
+  background-size: 200% 100%;
+}
+.stat-box::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  border-radius: 10px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.00) 0%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.00) 100%);
+  pointer-events: none;
+  animation: shimmer 2.2s linear infinite;
+}
+
+/* Risk badge pulse for high risk */
+.risk-badge[data-risk="high"] {
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+/* Small focus/hover animations */
+.channel-item:hover, .user-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(3,10,22,0.45);
+}
+
 

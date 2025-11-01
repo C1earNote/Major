@@ -50,18 +50,21 @@ export default function SuspiciousUsers({ users = [] }) {
     <div className="panel">
       <h2>Suspicious Users</h2>
       <ul className="user-list">
-        {list.map((u) => (
-          <li key={u.id} className="user-item">
-            <div className="user-left">
-              <div className="user-name">{u.name}</div>
-              <div className="muted">{u.username} • {u.phone}</div>
-            </div>
-            <div className="user-right">
-              <div className="risk-badge">{u.risk}%</div>
-            </div>
-            <div className="user-flags">{(u.flags || []).join(" · ")}</div>
-          </li>
-        ))}
+        {list.map((u) => {
+          const riskClass = u.risk >= 85 ? "high" : u.risk >= 55 ? "med" : "low";
+          return (
+            <li key={u.id} className="user-item">
+              <div className="user-left">
+                <div className="user-name">{u.name}</div>
+                <div className="muted">{u.username} • {u.phone}</div>
+              </div>
+              <div className="user-right">
+                <div className="risk-badge" data-risk={riskClass}>{u.risk}%</div>
+              </div>
+              <div className="user-flags">{(u.flags || []).join(" · ")}</div>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

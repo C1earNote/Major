@@ -31,18 +31,21 @@ export default function DetectedChannels({ channels = [] }) {
     <div className="panel">
       <h2>Detected Channels</h2>
       <ul className="channel-list">
-        {list.map((c) => (
-          <li key={c.id} className="channel-item">
-            <div className="channel-main">
-              <div className="channel-name">{c.name}</div>
-              <div className="channel-link">{c.link}</div>
-            </div>
-            <div className="channel-meta">
-              <span>{c.messagesLast24h} msgs / 24h</span>
-              <span className="risk">Risk: {c.riskScore}%</span>
-            </div>
-          </li>
-        ))}
+        {list.map((c) => {
+          const riskClass = c.riskScore >= 85 ? "high" : c.riskScore >= 55 ? "med" : "low";
+          return (
+            <li key={c.id} className="channel-item">
+              <div className="channel-main">
+                <div className="channel-name">{c.name}</div>
+                <div className="channel-link">{c.link}</div>
+              </div>
+              <div className="channel-meta">
+                <span>{c.messagesLast24h} msgs / 24h</span>
+                <span className="risk">Risk: <span className="risk-badge" data-risk={riskClass}>{c.riskScore}%</span></span>
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
