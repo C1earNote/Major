@@ -38,9 +38,18 @@
   filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
 }
 
-.stat-box.purple { border-left: 12px solid #a78bfa; }
-.stat-box.red { border-left: 12px solid #f87171; }
-.stat-box.blue { border-left: 12px solid #60a5fa; }
+.stat-box.purple {
+  background: linear-gradient(165deg, rgba(167, 139, 250, 0.2), rgba(167, 139, 250, 0.08));
+  border: 1px solid rgba(167, 139, 250, 0.3);
+}
+.stat-box.red {
+  background: linear-gradient(165deg, rgba(248, 113, 113, 0.2), rgba(248, 113, 113, 0.08));
+  border: 1px solid rgba(248, 113, 113, 0.3);
+}
+.stat-box.green {
+  background: linear-gradient(165deg, rgba(52, 211, 153, 0.2), rgba(52, 211, 153, 0.08));
+  border: 1px solid rgba(52, 211, 153, 0.3);
+}
 
 .message-analyzer {
   background-color: #1c1f26;
@@ -78,6 +87,69 @@
   cursor: pointer;
 }
 
+.scan-row {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.scan-button {
+  background: #1e1f25;
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 12px 24px;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.scan-button:hover {
+  background: #26272e;
+  transform: translateY(-1px);
+}
+
+.scan-icon {
+  width: 20px;
+  height: 20px;
+  opacity: 0.9;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ef4444;
+  margin-left: 4px;
+  position: relative;
+  animation: blink 2s ease-in-out infinite;
+}
+
+.status-dot.success {
+  background: #10b981;
+  animation: none;
+}
+
+.scan-button.scanning .scan-icon {
+  animation: scanning 1s ease infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+
+@keyframes scanning {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
 .messages-container {
   max-height: 400px;
   overflow-y: auto;
@@ -110,7 +182,75 @@
   font-size: 1.8rem;
 }
 
+.header-row .scan-button {
+  background: rgba(28, 31, 38, 0.4);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 20px;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 
+.header-row .scan-button:hover {
+  background: rgba(28, 31, 38, 0.6);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.scan-icon {
+  width: 20px;
+  height: 20px;
+  opacity: 0.9;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ef4444;
+  margin-left: 4px;
+  animation: blink 2s ease-in-out infinite;
+  transition: background-color 0.3s ease;
+}
+
+.status-dot.scanning {
+  background: #fbbf24;
+  animation: scanPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes scanPulse {
+  0% { opacity: 0.2; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.15); }
+  100% { opacity: 0.2; transform: scale(0.85); }
+}
+
+.status-dot.success {
+  background: #10b981;
+  animation: blink 2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 0.15; }
+  50% { opacity: 1; }
+  100% { opacity: 0.15; }
+}
+
+.scan-button.scanning .scan-icon {
+  animation: scanning 1s ease infinite;
+}
+
+@keyframes scanning {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
 
 .cols {
   display: grid;
@@ -314,18 +454,15 @@
 .channel-list li:nth-child(6), .user-list li:nth-child(6), .messages-container .message-card:nth-child(6) { animation-delay: 380ms; }
 
 /* Shimmer effect for stat boxes */
-.stat-box {
-  background-image: linear-gradient(90deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0.02) 100%);
-  background-size: 200% 100%;
-}
 .stat-box::after {
   content: "";
   position: absolute;
   left: 0; right: 0; top: 0; bottom: 0;
   border-radius: 10px;
-  background: linear-gradient(90deg, rgba(255,255,255,0.00) 0%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.00) 100%);
+  background: linear-gradient(90deg, rgba(255,255,255,0.00) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.00) 100%);
+  background-size: 200% 100%;
   pointer-events: none;
-  animation: shimmer 2.2s linear infinite;
+  animation: shimmer 4.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 /* Risk badge pulse for high risk */
