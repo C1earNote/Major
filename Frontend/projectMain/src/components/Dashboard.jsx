@@ -252,11 +252,34 @@ export default function Dashboard() {
 
       <div className="stats-grid">
         <div className="stat-box purple">
-          Channels Monitored: <b>{mockDetectedChannels.length + 21}</b>
+          <div className="stat-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3.375 4.5C2.339 4.5 1.5 5.34 1.5 6.375V13.5h12V6.375c0-1.036-.84-1.875-1.875-1.875h-8.25zM13.5 15h-12v2.625c0 1.035.84 1.875 1.875 1.875h8.25c1.035 0 1.875-.84 1.875-1.875V15z" />
+              <path d="M8.277 18.462c-.244.244-.628.224-.86-.008a6 6 0 0 1 .008-8.492c.233-.232.616-.252.86-.008.244.244.244.64 0 .884a4.5 4.5 0 0 0-.008 6.74c.244.244.244.64 0 .884z" />
+            </svg>
+          </div>
+          Channels Monitored
+          <div className="stat-number">27</div>
         </div>
-        <div className="stat-box red">Suspicious Detected: <b>9</b></div>
-        <div className="stat-box blue">Active Investigations: <b>3</b></div>
-        <div className="stat-box green">Successful Takedowns: <b>6</b></div>
+        <div className="stat-box red">
+          <div className="stat-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path fillRule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clipRule="evenodd" />
+            </svg>
+          </div>
+          Suspicious Detected
+          <div className="stat-number">9</div>
+        </div>
+        <div className="stat-box blue">
+          <div className="stat-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M11.625 16.5a1.875 1.875 0 100-3.75 1.875 1.875 0 000 3.75z" />
+              <path fillRule="evenodd" d="M5.625 1.5H9a3.75 3.75 0 013.75 3.75v1.875c0 1.036.84 1.875 1.875 1.875H16.5a3.75 3.75 0 013.75 3.75v7.875c0 1.035-.84 1.875-1.875 1.875H5.625a1.875 1.875 0 01-1.875-1.875V3.375c0-1.036.84-1.875 1.875-1.875zm6 16.5c.66 0 1.277-.19 1.797-.518l1.048 1.048a.75.75 0 001.06-1.06l-1.047-1.048A3.375 3.375 0 1011.625 18z" clipRule="evenodd" />
+            </svg>
+          </div>
+          Active Investigations
+          <div className="stat-number">3</div>
+        </div>
       </div>
 
       <div className="cols">
