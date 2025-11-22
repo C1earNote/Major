@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investigator Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard-styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="nav-links">
+                <a href="#" class="nav-link active" data-tab="dashboard-section">Dashboard</a>
+                <a href="#" class="nav-link" data-tab="channels-section">Detected Channels</a>
+                <a href="#" class="nav-link" data-tab="users-section">Suspicious Users</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Section -->
+    <div class="section active" id="dashboard-section">
+        <div class="header-row">
+            <h1>Investigator Dashboard</h1>
+            <button class="scan-button">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="scan-icon">
+                    <path d="M5.507 4.048A3 3 0 017.785 3h8.43a3 3 0 012.278 1.048l1.722 2.008A4.533 4.533 0 0019.5 6h-15c-.243 0-.482.02-.715.056l1.722-2.008z" />
+                    <path fill-rule="evenodd" d="M1.5 10.5a3 3 0 013-3h15a3 3 0 110 6h-15a3 3 0 01-3-3zm15 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm2.25.75a.75.75 0 100-1.5.75.75 0 000 1.5zM4.5 15a3 3 0 100 6h15a3 3 0 100-6h-15zm11.25 3.75a.75.75 0 100-1.5.75.75 0 000 1.5zM19.5 18a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" clip-rule="evenodd" />
+                </svg>
+                Quick Scan
+                <div class="status-dot"></div>
+            </button>
+        </div>
+
+        <!-- Quick Actions placed above main content -->
+        <div class="quick-actions panel small">
+            <h3>Quick Actions</h3>
+            <div class="input-row">
+                <input type="text" placeholder="Enter Group Link or @username" id="group-link">
+                <button onclick="handleFetchMessages()">Analyze</button>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-box purple">
+                <div class="stat-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3.375 4.5C2.339 4.5 1.5 5.34 1.5 6.375V13.5h12V6.375c0-1.036-.84-1.875-1.875-1.875h-8.25zM13.5 15h-12v2.625c0 1.035.84 1.875 1.875 1.875h8.25c1.035 0 1.875-.84 1.875-1.875V15z" />
+                        <path d="M8.277 18.462c-.244.244-.628.224-.86-.008a6 6 0 0 1 .008-8.492c.233-.232.616-.252.86-.008.244.244.244.64 0 .884a4.5 4.5 0 0 0-.008 6.74c.244.244.244.64 0 .884z" />
+                    </svg>
+                </div>
+                Channels Monitored
+                <div class="stat-number">27</div>
+            </div>
+            <div class="stat-box red">
+                <div class="stat-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                Suspicious Detected
+                <div class="stat-number">9</div>
+            </div>
+            <div class="stat-box green">
+                <div class="stat-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M11.625 16.5a1.875 1.875 0 100-3.75 1.875 1.875 0 000 3.75z" />
+                        <path fill-rule="evenodd" d="M5.625 1.5H9a3.75 3.75 0 013.75 3.75v1.875c0 1.036.84 1.875 1.875 1.875H16.5a3.75 3.75 0 013.75 3.75v7.875c0 1.035-.84 1.875-1.875 1.875H5.625a1.875 1.875 0 01-1.875-1.875V3.375c0-1.036.84-1.875 1.875-1.875zm6 16.5c.66 0 1.277-.19 1.797-.518l1.048 1.048a.75.75 0 001.06-1.06l-1.047-1.048A3.375 3.375 0 1011.625 18z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                Active Investigations
+                <div class="stat-number">3</div>
+            </div>
+        </div>
+
+        <div class="cols">
+            <section class="col left">
+                <div class="panel" id="detected-channels">
+                    <h2>Detected Channels</h2>
+                    <div class="channel-list"></div>
+                </div>
+
+                <!-- quick actions moved above -->
+            </section>
+
+            <section class="col right">
+                <div class="panel">
+                    <h2>Latest Messages</h2>
+                    <div class="messages-container" id="messages-container">
+                        <p class="no-messages">No messages found.</p>
+                    </div>
+                </div>
+
+                <div class="panel" id="suspicious-users">
+                    <h2>Suspicious Users</h2>
+                    <div class="user-list"></div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Detected Channels Section -->
+    <div class="section" id="channels-section">
+        <div class="dashboard">
+            <div class="header-row">
+                <h1>Detected Channels</h1>
+                <button class="scan-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="scan-icon">
+                        <path d="M5.507 4.048A3 3 0 017.785 3h8.43a3 3 0 012.278 1.048l1.722 2.008A4.533 4.533 0 0019.5 6h-15c-.243 0-.482.02-.715.056l1.722-2.008z" />
+                        <path fill-rule="evenodd" d="M1.5 10.5a3 3 0 013-3h15a3 3 0 110 6h-15a3 3 0 01-3-3zm15 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm2.25.75a.75.75 0 100-1.5.75.75 0 000 1.5zM4.5 15a3 3 0 100 6h15a3 3 0 100-6h-15zm11.25 3.75a.75.75 0 100-1.5.75.75 0 000 1.5zM19.5 18a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" clip-rule="evenodd" />
+                    </svg>
+                    Quick Scan
+                    <div class="status-dot"></div>
+                </button>
+            </div>
+
+            <div class="channel-filters">
+                <div class="filter-group">
+                    <label>Sort by:</label>
+                    <select id="sort-channels" class="filter-select">
+                        <option value="members">Members Count</option>
+                        <option value="activity">Activity Level</option>
+                        <option value="risk">Risk Score</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Filter:</label>
+                    <select id="filter-channels" class="filter-select">
+                        <option value="all">All Channels</option>
+                        <option value="high-risk">High Risk</option>
+                        <option value="medium-risk">Medium Risk</option>
+                        <option value="low-risk">Low Risk</option>
+                    </select>
+                </div>
+                <div class="search-group">
+                    <input type="text" placeholder="Search channels..." id="search-channels" class="search-input">
+                </div>
+            </div>
+
+            <div class="channels-grid">
+                <!-- Channels will be populated here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Suspicious Users Section -->
+    <div class="section" id="users-section">
+        <div class="dashboard">
+            <div class="header-row">
+                <h1>Suspicious Users</h1>
+                <button class="scan-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="scan-icon">
+                        <path d="M5.507 4.048A3 3 0 017.785 3h8.43a3 3 0 012.278 1.048l1.722 2.008A4.533 4.533 0 0019.5 6h-15c-.243 0-.482.02-.715.056l1.722-2.008z" />
+                        <path fill-rule="evenodd" d="M1.5 10.5a3 3 0 013-3h15a3 3 0 110 6h-15a3 3 0 01-3-3zm15 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm2.25.75a.75.75 0 100-1.5.75.75 0 000 1.5zM4.5 15a3 3 0 100 6h15a3 3 0 100-6h-15zm11.25 3.75a.75.75 0 100-1.5.75.75 0 000 1.5zM19.5 18a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" clip-rule="evenodd" />
+                    </svg>
+                    Quick Scan
+                    <div class="status-dot"></div>
+                </button>
+            </div>
+
+            <div class="user-filters">
+                <div class="filter-group">
+                    <label>Sort by:</label>
+                    <select id="sort-users" class="filter-select">
+                        <option value="risk">Risk Level</option>
+                        <option value="activity">Activity</option>
+                        <option value="reports">Reports</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Risk Level:</label>
+                    <select id="filter-users" class="filter-select">
+                        <option value="all">All Users</option>
+                        <option value="high">High Risk</option>
+                        <option value="medium">Medium Risk</option>
+                        <option value="low">Low Risk</option>
+                    </select>
+                </div>
+                <div class="search-group">
+                    <input type="text" placeholder="Search users..." id="search-users" class="search-input">
+                </div>
+            </div>
+
+            <div class="users-grid">
+                <!-- Users will be populated here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="dashboard-script.js"></script>
+    <script src="channels-script.js"></script>
+    <script src="users-script.js"></script>
+</body>
+</html>

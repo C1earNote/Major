@@ -1,0 +1,23 @@
+:root {
+  --bg: #071025;
+  --card: rgba(255,255,255,0.04);
+  --muted: #98a1b2;
+  --accent: #4fd1c5; /* teal accent */
+  --danger: #ff6b6b;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 400;
+  color-scheme: dark;
+  background-color: var(--bg);
+  color: #e6eef8;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* { box-sizing: border-box; }
+
+html,body,#root { height: 100%; }
+
